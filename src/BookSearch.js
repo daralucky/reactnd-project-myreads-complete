@@ -1,31 +1,49 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+//import escapeRegExp from 'escape-string-regexp'
+//import sortBy from 'sort-by'
 import * as BooksAPI from './BooksAPI'
 
 
 class BookSearch extends Component {
     state = {
-        searchResultBooks: [],
+        myStateBooks: [],
         query: ''
     }
 
     updateQuery = (query) => {
-        this.setState({ query: query.trim() })
+        this.setState({ query })
     }
 
-    componentDidMount() {
-        BooksAPI.search('Web Development', 1).then((books) => {
-            this.setState({ searchResultBooks: books })
-            //console.log(books)
-        })
+
+    searchBook() {
+        if (this.state.query) {
+            BooksAPI.search(this.state.query, 20).then((books) => {
+                this.setState({ myStateBooks: books })
+                console.log(books)
+            })
+        } else {
+            this.setState({ myStateBooks: []})
+        }
+
     }
+
 
     render() {
 
         const { query } = this.state
 
+
+
+        if (query) {
+            this.searchBook()
+
+        }
+
+
         return (
             <div className="search-books">
+
                 <div className="search-books-bar">
                     <Link to="/" className="close-search">Close</Link>
                     <div className="search-books-input-wrapper">
@@ -47,9 +65,10 @@ class BookSearch extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                 {JSON.stringify("query: " + query)}
+                    {JSON.stringify("query: " + query)}
+                    {JSON.stringify(" myStateBooks: " + this.state.myStateBooks)}
                     <ol className="books-grid">
-                        {this.state.searchResultBooks.map(book => (
+                        {this.state.myStateBooks.length !== 0 && (this.state.myStateBooks.map(book => (
                             <li key={book.id}>
                                 <div className="book">
                                     <div className="book-top">
@@ -68,7 +87,8 @@ class BookSearch extends Component {
                                     <div className="book-authors">{book.authors.join(", ")}</div>
                                 </div>
                             </li>
-                        ))}
+                        ))
+                        )}
                     </ol>
                 </div>
             </div>
