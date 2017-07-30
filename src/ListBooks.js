@@ -14,19 +14,28 @@ const ListBooks = (props) => {
                     <div className="bookshelf">
                         <h2 className="bookshelf-title">Currently Reading</h2>
                         <div className="bookshelf-books">
-                            <BooksGrid books={props.myBooks.filter(book => book.shelf === "currentlyReading")} />
+                            <BooksGrid
+                                books={props.myBooks.filter(book => book.shelf === "currentlyReading")}
+                                onChangeShelf={(bookAndShelf) => props.onChangeShelf(bookAndShelf)}
+                            />
                         </div>
                     </div>
                     <div className="bookshelf">
                         <h2 className="bookshelf-title">Want to Read</h2>
                         <div className="bookshelf-books">
-                           <BooksGrid books={props.myBooks.filter(book => book.shelf === "wantToRead")} />
+                            <BooksGrid
+                                books={props.myBooks.filter(book => book.shelf === "wantToRead")}
+                                onChangeShelf={(bookAndShelf) => props.onChangeShelf(bookAndShelf)}
+                            />
                         </div>
                     </div>
                     <div className="bookshelf">
                         <h2 className="bookshelf-title">Read</h2>
                         <div className="bookshelf-books">
-                           <BooksGrid books={props.myBooks.filter(book => book.shelf === "read")} />
+                            <BooksGrid
+                                books={props.myBooks.filter(book => book.shelf === "read")}
+                                onChangeShelf={(bookAndShelf) => {props.onChangeShelf(bookAndShelf)} }
+                            />
                         </div>
                     </div>
                 </div>
@@ -37,7 +46,8 @@ const ListBooks = (props) => {
 }
 
 ListBooks.propTypes = {
-    myBooks: PropTypes.array.isRequired
+    myBooks: PropTypes.array.isRequired,
+    onChangeShelf: PropTypes.func.isRequired
 }
 
 export default ListBooks

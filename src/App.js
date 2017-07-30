@@ -8,13 +8,24 @@ import './App.css'
 class BooksApp extends Component {
   state = {
     searchResultBooks: [],
-    myBooksOnShelves: []
+    booksOnShelves: []
   }
 
   componentDidMount() {
+    this.getCurrentBooksOnShelves()
+  }
+
+  getCurrentBooksOnShelves() {
     BooksAPI.getAll().then((books) => {
-      this.setState({ myBooksOnShelves: books })
-      console.log(this.state.myBooksOnShelves)
+      this.setState({ booksOnShelves: books })
+      //console.log(this.state.booksOnShelves)
+    })
+  }
+
+  changeBookShelf(bookAndShelf) {
+    //console.log("onChangeShelf | BookId:" + bookAndShelf.book.id + " New Shelf: " + bookAndShelf.newShelf)
+    BooksAPI.update(bookAndShelf.book, bookAndShelf.newShelf).then((book) => {
+      this.getCurrentBooksOnShelves()
     })
   }
 
@@ -22,9 +33,10 @@ class BooksApp extends Component {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-             <ListBooks
-              myBooks={this.state.myBooksOnShelves}
-               />
+          <ListBooks
+            myBooks={this.state.booksOnShelves}
+            onChangeShelf={(bookAndShelf) => { this.changeBookShelf(bookAndShelf) }}
+          />
 
         )} />
 
