@@ -5,18 +5,25 @@ import * as BooksAPI from './BooksAPI'
 
 class BookSearch extends Component {
     state = {
-        allBooks: []
+        searchResultBooks: [],
+        query: ''
     }
 
+    updateQuery = (query) => {
+        this.setState({ query: query.trim() })
+    }
 
     componentDidMount() {
         BooksAPI.search('Web Development', 1).then((books) => {
-            this.setState({ allBooks: books })
+            this.setState({ searchResultBooks: books })
             //console.log(books)
         })
     }
 
     render() {
+
+        const { query } = this.state
+
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -30,13 +37,19 @@ class BookSearch extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                        <input type="text" placeholder="Search by title or author" />
+                        <input
+                            type="text"
+                            placeholder="Search by title or author"
+                            value={query}
+                            onChange={(event) => this.updateQuery(event.target.value)}
+                        />
 
                     </div>
                 </div>
                 <div className="search-books-results">
+                 {JSON.stringify("query: " + query)}
                     <ol className="books-grid">
-                        {this.state.allBooks.map(book => (
+                        {this.state.searchResultBooks.map(book => (
                             <li key={book.id}>
                                 <div className="book">
                                     <div className="book-top">
@@ -51,7 +64,7 @@ class BookSearch extends Component {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="book-title">${book.title}</div>
+                                    <div className="book-title">{book.title}</div>
                                     <div className="book-authors">{book.authors.join(", ")}</div>
                                 </div>
                             </li>
