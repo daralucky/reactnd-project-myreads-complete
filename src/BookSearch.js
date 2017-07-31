@@ -1,8 +1,17 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import BooksGrid from './BooksGrid'
 
 class BookSearch extends Component {
+    static propTypes = {
+        myBooks: PropTypes.array.isRequired,
+        searchResult: PropTypes.array.isRequired,
+        onSearchBook: PropTypes.func.isRequired,
+        onChangeShelf: PropTypes.func.isRequired,
+        onClearSearchResult: PropTypes.func.isRequired
+    }
+
     state = {
         query: ''
     }
