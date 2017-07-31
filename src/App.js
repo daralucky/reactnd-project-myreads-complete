@@ -7,7 +7,7 @@ import './App.css'
 
 class BooksApp extends Component {
   state = {
-    searchResultBooks: [],
+    bookSearchResult: [],
     booksOnShelves: []
   }
 
@@ -23,15 +23,34 @@ class BooksApp extends Component {
   }
 
   changeBookShelf(bookAndShelf) {
-    //console.log("onChangeShelf | BookId:" + bookAndShelf.book.id + " New Shelf: " + bookAndShelf.newShelf)
-    BooksAPI.update(bookAndShelf.book, bookAndShelf.newShelf).then((book) => {
+    console.log("onChangeShelf | BookId:" + bookAndShelf.book.id + " New Shelf: " + bookAndShelf.newShelf)
+    BooksAPI.update(bookAndShelf.book, bookAndShelf.newShelf).then(() => {
       this.getCurrentBooksOnShelves()
     })
   }
 
+  searchBook(query) {
+    console.log("query: " + query)
+    BooksAPI.search(query).then((books) => {
+
+      if (books.error) {
+        console.log("Search Error: " + books.error)
+        this.setState({ bookSearchResult: [] })
+      } else {
+        console.log("Search Result: " + books.length)
+        console.log("raw result: " + JSON.stringify(books))
+        this.setState({ bookSearchResult: books })
+      }
+
+    })
+  }
+
+  clearSearchResult() {
+    this.setState({ bookSearchResult: [] })
+  }
   render() {
     return (
-      <div className="app">
+      <div className="app" >
         <Route exact path="/" render={() => (
           <ListBooks
             myBooks={this.state.booksOnShelves}
@@ -42,10 +61,12 @@ class BooksApp extends Component {
 
         <Route exact path="/search" render={() => (
           <BookSearch
-            searchResultBooks={this.state.searchResultBooks}
+            searchResult={this.state.bookSearchResult}
             onSearchBook={(query) => {
               this.searchBook(query)
             }}
+            onChangeShelf={(bookAndShelf) => { this.changeBookShelf(bookAndShelf) }}
+            onClearSearchResult={this.clearSearchResult}
           />
         )} />
       </div >
