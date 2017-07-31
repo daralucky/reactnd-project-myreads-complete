@@ -32,7 +32,6 @@ class BooksApp extends Component {
   searchBook(query) {
     console.log("query: " + query)
     BooksAPI.search(query).then((books) => {
-
       if (books.error) {
         console.log("Search Error: " + books.error)
         this.setState({ bookSearchResult: [] })
@@ -41,7 +40,6 @@ class BooksApp extends Component {
         //console.log("raw result: " + JSON.stringify(books))
         this.setState({ bookSearchResult: books })
       }
-
     })
   }
 

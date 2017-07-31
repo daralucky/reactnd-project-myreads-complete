@@ -12,7 +12,7 @@ const getBookShelf = (myBooks, book) => {
     let matchBook = myBooks.filter(b => b.id === book.id)
 
     if (matchBook.length === 1) {
-        console.log("getBookShelf MATCH | id:" + book.id + ", title: " + matchBook[0].title + " ,shelf: " + matchBook[0].shelf)
+        console.log("getBookShelf MATCH | id:" + book.id + ", title: " + matchBook[0].title + ", shelf: " + matchBook[0].shelf)
         return matchBook[0].shelf
     } else {
         return book.shelf
