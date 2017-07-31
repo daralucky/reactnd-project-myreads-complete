@@ -48,6 +48,7 @@ class BooksApp extends Component {
   clearSearchResult() {
     this.setState({ bookSearchResult: [] })
   }
+
   render() {
     return (
       <div className="app" >
@@ -61,6 +62,7 @@ class BooksApp extends Component {
 
         <Route exact path="/search" render={() => (
           <BookSearch
+            myBooks={this.state.booksOnShelves}
             searchResult={this.state.bookSearchResult}
             onSearchBook={(query) => {
               this.searchBook(query)

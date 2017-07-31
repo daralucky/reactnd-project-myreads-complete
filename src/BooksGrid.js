@@ -8,6 +8,13 @@ const getAuthorsInRightFormat = (authors) => {
     return authors
 }
 
+const getBookShelf = (myBooks, id) => {
+    let book = myBooks.filter(b => b.id === id)
+    //console.log("getBookShelf | id:" + id + " book selft: " + JSON.stringify(book))
+    console.log("getBookShelf | id:" + id + " book shelf: " + book[0].shelf)
+    return book[0].shelf
+}
+
 const BooksGrid = (props) => {
     return (
         <ol className="books-grid">
@@ -25,7 +32,10 @@ const BooksGrid = (props) => {
                                 }}>
                             </div>
                             <div className="book-shelf-changer">
-                                <select value={book.shelf} onChange={(event) => props.onChangeShelf({ book: book, newShelf: event.target.value })} >
+                                <select
+                                    value={getBookShelf(props.myBooks, book.id)}
+                                    onChange={(event) => props.onChangeShelf({ book: book, newShelf: event.target.value })}
+                                >
                                     <option value="none" disabled>Move to...</option>
                                     <option value="currentlyReading">Currently Reading</option>
                                     <option value="wantToRead">Want to Read</option>
