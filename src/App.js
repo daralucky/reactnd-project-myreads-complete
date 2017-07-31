@@ -38,7 +38,7 @@ class BooksApp extends Component {
         this.setState({ bookSearchResult: [] })
       } else {
         console.log("Search Result: " + books.length)
-        console.log("raw result: " + JSON.stringify(books))
+        //console.log("raw result: " + JSON.stringify(books))
         this.setState({ bookSearchResult: books })
       }
 
