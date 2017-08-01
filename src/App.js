@@ -22,11 +22,21 @@ class BooksApp extends Component {
     })
   }
 
-  changeBookShelf(bookAndShelf) {
+  updateBookShelf(bookAndShelf) {
     console.log("onChangeShelf | BookId:" + bookAndShelf.book.id + " New Shelf: " + bookAndShelf.newShelf)
     BooksAPI.update(bookAndShelf.book, bookAndShelf.newShelf).then(() => {
       this.getCurrentBooksOnShelves()
     })
+  }
+
+  getBookShelf(bookId) {
+    let myShelf = this.state.booksOnShelves.filter(book => book.id === bookId).map(book => book.shelf).toString()
+
+    if (myShelf) {
+        console.log("getBookShelf(APP) FOUND | id:" + bookId + ", shelf: " + myShelf)
+    }
+
+    return myShelf ? myShelf : "none"
   }
 
   searchBook(query) {
@@ -53,19 +63,19 @@ class BooksApp extends Component {
         <Route exact path="/" render={() => (
           <ListBooks
             myBooks={this.state.booksOnShelves}
-            onChangeShelf={(bookAndShelf) => { this.changeBookShelf(bookAndShelf) }}
+            onChangeShelf={(bookAndShelf) => { this.updateBookShelf(bookAndShelf) }}
           />
 
         )} />
 
         <Route exact path="/search" render={() => (
           <BookSearch
-            myBooks={this.state.booksOnShelves}
+            onGetBookShelf={(bookId) => this.getBookShelf(bookId)}
             searchResult={this.state.bookSearchResult}
             onSearchBook={(query) => {
               this.searchBook(query)
             }}
-            onChangeShelf={(bookAndShelf) => { this.changeBookShelf(bookAndShelf) }}
+            onChangeShelf={(bookAndShelf) => { this.updateBookShelf(bookAndShelf) }}
             onClearSearchResult={this.clearSearchResult}
           />
         )} />

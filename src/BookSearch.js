@@ -5,7 +5,7 @@ import BooksGrid from './BooksGrid'
 
 class BookSearch extends Component {
     static propTypes = {
-        myBooks: PropTypes.array.isRequired,
+        onGetBookShelf: PropTypes.func.isRequired,
         searchResult: PropTypes.array.isRequired,
         onSearchBook: PropTypes.func.isRequired,
         onChangeShelf: PropTypes.func.isRequired,
@@ -26,7 +26,7 @@ class BookSearch extends Component {
     render() {
 
         const { query } = this.state
-        const { searchResult, onChangeShelf, onClearSearchResult, myBooks } = this.props
+        const { searchResult, onChangeShelf, onClearSearchResult, onGetBookShelf } = this.props
 
         return (
             <div className="search-books">
@@ -45,7 +45,8 @@ class BookSearch extends Component {
                     {JSON.stringify("query: " + query)}
                     {JSON.stringify(" Result: " + searchResult.length)}
                     <BooksGrid
-                        myBooks={myBooks}
+                        isCheckShelf={true}
+                        onGetBookShelf={(bookId) => onGetBookShelf(bookId) }
                         books={searchResult}
                         onChangeShelf={(bookAndShelf) => { onChangeShelf(bookAndShelf) }}
                     />
