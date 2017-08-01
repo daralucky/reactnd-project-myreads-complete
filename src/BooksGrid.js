@@ -8,18 +8,6 @@ const getAuthorsInRightFormat = (authors) => {
     return authors
 }
 
-/*
-const getBookShelf = (myBooks, book) => {
-    let myShelf = myBooks.filter(b => b.id === book.id).map(b => b.shelf).toString()
-
-    if (myShelf) {
-        console.log("getBookShelf FOUND | id:" + book.id + ", title: " + book.title + ", shelf: " + myShelf)
-    }
-
-    return myShelf ? myShelf : "none"
-}
-*/
-
 const BooksGrid = (props) => {
     return (
         <ol className="books-grid">
@@ -37,14 +25,8 @@ const BooksGrid = (props) => {
                                 }}>
                             </div>
                             <div className="book-shelf-changer">
-                            {
-                                //console.log("props.isCheckShelf: " + props.isCheckShelf)
-                            }
                                 <select
-                                    value={
-                                        props.isCheckShelf ? props.onGetBookShelf(book.id) : book.shelf
-                                        //getBookShelf(props.myBooks, book)
-                                    }
+                                    value={props.isCheckShelf ? props.onGetBookShelf(book.id) : book.shelf}
                                     onChange={(event) => props.onChangeShelf({ book: book, newShelf: event.target.value })}
                                 >
                                     <option value="none" disabled>Move to...</option>
