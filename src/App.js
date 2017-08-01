@@ -23,7 +23,7 @@ class BooksApp extends Component {
   }
 
   updateBookShelf(bookAndShelf) {
-    console.log("onChangeShelf | BookId:" + bookAndShelf.book.id + " New Shelf: " + bookAndShelf.newShelf)
+    //console.log("onChangeShelf | BookId:" + bookAndShelf.book.id + " New Shelf: " + bookAndShelf.newShelf)
     BooksAPI.update(bookAndShelf.book, bookAndShelf.newShelf).then(() => {
       this.getCurrentBooksOnShelves()
     })
@@ -31,22 +31,17 @@ class BooksApp extends Component {
 
   getBookShelf(bookId) {
     let myShelf = this.state.booksOnShelves.filter(book => book.id === bookId).map(book => book.shelf).toString()
-
-    if (myShelf) {
-        console.log("getBookShelf(APP) FOUND | id:" + bookId + ", shelf: " + myShelf)
-    }
-
     return myShelf ? myShelf : "none"
   }
 
   searchBook(query) {
-    console.log("query: " + query)
+    //console.log("query: " + query)
     BooksAPI.search(query).then((books) => {
       if (books.error) {
-        console.log("Search Error: " + books.error)
+        //console.log("Search Error: " + books.error)
         this.setState({ bookSearchResult: [] })
       } else {
-        console.log("Search Result: " + books.length)
+        //console.log("Search Result: " + books.length)
         //console.log("raw result: " + JSON.stringify(books))
         this.setState({ bookSearchResult: books })
       }
