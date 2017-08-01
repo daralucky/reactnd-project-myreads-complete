@@ -42,8 +42,6 @@ class BookSearch extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    {JSON.stringify("query: " + query)}
-                    {JSON.stringify(" Result: " + searchResult.length)}
                     <BooksGrid
                         isCheckShelf={true}
                         onGetBookShelf={(bookId) => onGetBookShelf(bookId) }

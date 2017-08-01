@@ -1,13 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const getAuthorsInRightFormat = (authors) => {
-    if (Array.isArray(authors)) {
-        return authors.join(", ")
-    }
-    return authors
-}
-
 const BooksGrid = (props) => {
     return (
         <ol className="books-grid">
@@ -38,11 +31,7 @@ const BooksGrid = (props) => {
                             </div>
                         </div>
                         <div className="book-title">{book.title}</div>
-                        <div className="book-authors">
-                            {
-                                getAuthorsInRightFormat(book.authors)
-                            }
-                        </div>
+                        <div className="book-authors">{Array.isArray(book.authors) ? book.authors.join(", ") : book.authors}</div>
                     </div>
                 </li>
             ))
