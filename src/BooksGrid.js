@@ -13,10 +13,9 @@ const getBookShelf = (myBooks, book) => {
 
     if (myShelf) {
         console.log("getBookShelf FOUND | id:" + book.id + ", title: " + book.title + ", shelf: " + myShelf)
-        return myShelf
-    } else {
-        return "none"
     }
+
+    return myShelf ? myShelf : "none"
 }
 
 const BooksGrid = (props) => {
