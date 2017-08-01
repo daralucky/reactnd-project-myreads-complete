@@ -9,13 +9,13 @@ const getAuthorsInRightFormat = (authors) => {
 }
 
 const getBookShelf = (myBooks, book) => {
-    let matchBook = myBooks.filter(b => b.id === book.id)
+    let myShelf = myBooks.filter(b => b.id === book.id).map(b => b.shelf).toString()
 
-    if (matchBook.length === 1) {
-        console.log("getBookShelf MATCH | id:" + book.id + ", title: " + matchBook[0].title + ", shelf: " + matchBook[0].shelf)
-        return matchBook[0].shelf
+    if (myShelf) {
+        console.log("getBookShelf FOUND | id:" + book.id + ", title: " + book.title + ", shelf: " + myShelf)
+        return myShelf
     } else {
-        return book.shelf
+        return "none"
     }
 }
 
