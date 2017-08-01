@@ -15,7 +15,7 @@ const ListBooks = (props) => {
                         <h2 className="bookshelf-title">Currently Reading</h2>
                         <div className="bookshelf-books">
                             <BooksGrid
-                                myBooks={props.myBooks}
+                                isCheckShelf={false}
                                 books={props.myBooks.filter(book => book.shelf === "currentlyReading")}
                                 onChangeShelf={(bookAndShelf) => props.onChangeShelf(bookAndShelf)}
                             />
@@ -25,7 +25,7 @@ const ListBooks = (props) => {
                         <h2 className="bookshelf-title">Want to Read</h2>
                         <div className="bookshelf-books">
                             <BooksGrid
-                                myBooks={props.myBooks}
+                                isCheckShelf={false}
                                 books={props.myBooks.filter(book => book.shelf === "wantToRead")}
                                 onChangeShelf={(bookAndShelf) => props.onChangeShelf(bookAndShelf)}
                             />
@@ -35,7 +35,7 @@ const ListBooks = (props) => {
                         <h2 className="bookshelf-title">Read</h2>
                         <div className="bookshelf-books">
                             <BooksGrid
-                                myBooks={props.myBooks}
+                                isCheckShelf={false}
                                 books={props.myBooks.filter(book => book.shelf === "read")}
                                 onChangeShelf={(bookAndShelf) => {props.onChangeShelf(bookAndShelf)} }
                             />
