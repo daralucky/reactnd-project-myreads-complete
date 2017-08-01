@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
+import sortBy from 'sort-by'
 import * as BooksAPI from './BooksAPI'
 import ListBooks from './ListBooks'
 import BookSearch from './BookSearch'
@@ -17,7 +18,7 @@ class BooksApp extends Component {
 
   getCurrentBooksOnShelves() {
     BooksAPI.getAll().then((books) => {
-      this.setState({ booksOnShelves: books })
+      this.setState({ booksOnShelves: books.sort(sortBy('title')) })
       //console.log(this.state.booksOnShelves)
     })
   }
@@ -43,7 +44,7 @@ class BooksApp extends Component {
       } else {
         //console.log("Search Result: " + books.length)
         //console.log("raw result: " + JSON.stringify(books))
-        this.setState({ bookSearchResult: books })
+        this.setState({ bookSearchResult: books.sort(sortBy('title')) })
       }
     })
   }
