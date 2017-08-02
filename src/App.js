@@ -24,10 +24,21 @@ class BooksApp extends Component {
   }
 
   updateBookShelf(bookAndShelf) {
-    //console.log("onChangeShelf | BookId:" + bookAndShelf.book.id + " New Shelf: " + bookAndShelf.newShelf)
-    BooksAPI.update(bookAndShelf.book, bookAndShelf.newShelf).then(() => {
-      this.getCurrentBooksOnShelves()
-    })
+    let { book, newShelf } = bookAndShelf
+    //console.log("onChangeShelf | Title: " + book.title + ", New Shelf: " + newShelf)
+
+    if (book.shelf !== newShelf) {
+      BooksAPI.update(book, newShelf).then(() => {
+        book.shelf = newShelf
+
+        // Filter out the book and append it to the end of the list
+        // so it appears at the end of whatever shelf it was added to.
+        this.setState(prevState => ({
+          booksOnShelves: prevState.booksOnShelves.filter(b => b.id !== book.id).concat([book])
+        }))
+
+      })
+    }
   }
 
   getBookShelf(bookId) {
